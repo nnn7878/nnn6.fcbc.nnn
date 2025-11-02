@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云寄售平台</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #f5f7fa; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 15px 0; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: bold; color: #3498db; text-decoration: none; }
+        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links a { text-decoration: none; color: #333; font-weight: 500; }
+        .auth-buttons { display: flex; gap: 10px; }
+        .btn { padding: 8px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-outline { background: transparent; border: 1px solid #3498db; color: #3498db; }
+        .hero { background: linear-gradient(135deg, #3498db, #8e44ad); color: white; padding: 80px 0; text-align: center; }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 50px 0; }
+        .feature-card { background: white; padding: 30px; border-radius: 8px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .form-container { max-width: 500px; margin: 50px auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .form-group { margin-bottom: 20px; }
+        .form-control { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">云寄售</a>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showPage('home')">首页</a></li>
+                    <li><a href="#" onclick="showPage('products')">商品浏览</a></li>
+                    <li><a href="#" onclick="showPage('sell')">我要寄售</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" onclick="showPage('login')">登录</button>
+                    <button class="btn btn-primary" onclick="showPage('register')">注册</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="page">
+        <div class="hero">
+            <div class="container">
+                <h1>轻松寄售，安心交易</h1>
+                <p>专业的云寄售平台，让闲置物品创造价值</p>
+                <button class="btn btn-primary" style="margin-top: 20px; padding: 12px 30px;" onclick="showPage('register')">开始使用</button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="features">
+                <div class="feature-card">
+                    <h3>简单易用</h3>
+                    <p>三步完成商品寄售，操作简单快捷</p>
+                </div>
+                <div class="feature-card">
+                    <h3>安全可靠</h3>
+                    <p>多重保障机制，交易安全无忧</p>
+                </div>
+                <div class="feature-card">
+                    <h3>高效便捷</h3>
+                    <p>智能匹配买家，快速达成交易</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="register" class="page hidden">
+        <div class="container">
+            <div class="form-container">
+                <h2>注册账号</h2>
+                <form onsubmit="registerUser(event)">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="用户名" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="电子邮箱" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="密码" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">注册</button>
+                    <p style="text-align: center; margin-top: 20px;">
+                        <a href="#" onclick="showPage('login')">已有账号？立即登录</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="login" class="page hidden">
+        <div class="container">
+            <div class="form-container">
+                <h2>登录账号</h2>
+                <form onsubmit="loginUser(event)">
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="电子邮箱" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="密码" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">登录</button>
+                    <p style="text-align: center; margin-top: 20px;">
+                        <a href="#" onclick="showPage('register')">没有账号？立即注册</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="sell" class="page hidden">
+        <div class="container">
+            <div class="form-container">
+                <h2>寄售商品</h2>
+                <form onsubmit="submitProduct(event)">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="商品名称" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" placeholder="价格" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="商品描述" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">发布商品</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+            });
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        function registerUser(e) {
+            e.preventDefault();
+            alert('注册成功！');
+            showPage('home');
+        }
+
+        function loginUser(e) {
+            e.preventDefault();
+            alert('登录成功！');
+            showPage('home');
+        }
+
+        function submitProduct(e) {
+            e.preventDefault();
+            alert('商品发布成功！');
+            showPage('home');
+        }
+
+        // 默认显示首页
+        showPage('home');
+    </script>
+</body>
+</html>
